@@ -26,6 +26,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,6 +40,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.http.OkHttpClientFactory;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
+import com.nineinfosys.android.salestaxcalculator.DashBord.GetApp;
 import com.nineinfosys.android.salestaxcalculator.Login.Contacts;
 import com.nineinfosys.android.salestaxcalculator.Login.LoginActivity;
 import com.squareup.okhttp.OkHttpClient;
@@ -77,12 +79,14 @@ EditText amount,tax;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         amount=(EditText)findViewById(R.id.amountedittext);
         tax=(EditText)findViewById(R.id.taxpaidedittextid);
         finalvaluecal=(Button)findViewById(R.id.buttoncalculate);
         taxtextview=(TextView)findViewById(R.id.taxttext);
         amounttextview=(TextView)findViewById(R.id.amounttext);
         clearbutton=(Button)findViewById(R.id.buttonclear);
+        Button buttonhelp = (Button) findViewById(R.id.saleshelp);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mNavigationView = (NavigationView) findViewById(R.id.shitstuff);
@@ -121,9 +125,9 @@ EditText amount,tax;
 
                 if (menuItem.getItemId() == R.id.GetApps) {
 
-                    /*Intent intent=new Intent(MainActivityDrawer.this,RequestApp.class);
+                    Intent intent=new Intent(MainActivity.this,GetApp.class);
                     startActivity(intent);
-*/
+
 
                 }
 
@@ -181,6 +185,14 @@ EditText amount,tax;
                 tax.setText("");
                 taxtextview.setText("");
                 amounttextview.setText("");
+            }
+        });
+        buttonhelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent helpref = new Intent(MainActivity.this,SalesTaxHelp.class);
+                startActivity(helpref);
             }
         });
     }
